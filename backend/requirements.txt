@@ -5,7 +5,7 @@
 # habilitando en los próximos pasos.
 
 # --- Paso 2: embeddings locales para el PoC ---
-# sentence-transformers>=2.2
+sentence-transformers>=2.2
 
 # --- Paso 4: API ---
 # fastapi>=0.110
