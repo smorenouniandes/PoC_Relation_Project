@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Datos generados (sintéticos) — no versionar salidas pesadas
+backend/data/raw/*.json
+backend/data/processed/
+
+# Entornos / secretos
+.env
+*.local
+
+# SO / editores
+.DS_Store
