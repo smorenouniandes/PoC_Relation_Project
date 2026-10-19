@@ -23,8 +23,12 @@ modelo de embeddings, puede tardar unos minutos).
 | Documentación de la API | http://localhost:8000/docs |
 | Frontend (desde el Paso 5) | http://localhost:3000 |
 
-> **Nota:** el frontend se incorpora en el Paso 5. Hasta entonces, el backend es
-> plenamente funcional por sí solo (prueba `http://localhost:8000/docs`).
+Abre **http://localhost:3000** para usar el chat.
+
+> **Primer arranque:** el backend descarga el modelo de embeddings y prepara los
+> datos; puede tardar unos minutos. El frontend queda disponible de inmediato,
+> pero las búsquedas responderán cuando el backend termine de inicializar
+> (revisa `http://localhost:8000/salud`).
 
 ## 📚 Documentación
 
@@ -51,4 +55,12 @@ solo la configuración, sin reescribir la lógica.
 2. ✅ Ingesta → Perfil de Expertise Unificado + embeddings
 3. ✅ Motor de matching
 4. ✅ API FastAPI + dockerización
-5. ⏳ Frontend React/Next
+5. ✅ Frontend React/Next (chat + contacto + feedback)
+
+## 💬 Cómo se usa
+
+1. Escribe tu necesidad en lenguaje natural (p. ej. _"optimización de PostgreSQL
+   para reportería"_).
+2. El sistema muestra las personas más indicadas, con su nivel de confianza y una
+   explicación del match.
+3. Pulsa **Contactar** para abrir un correo pre-redactado, y da feedback 👍/👎.

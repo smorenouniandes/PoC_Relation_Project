@@ -33,6 +33,19 @@ services:
       retries: 5
       start_period: 120s   # primera vez descarga el modelo de embeddings
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # URL del backend usada por el navegador (no el nombre de servicio Docker).
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+    container_name: relation_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
 volumes:
   backend_data:
   hf_cache:

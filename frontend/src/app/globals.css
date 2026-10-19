@@ -1,0 +1,293 @@
+:root {
+  --bg: #0f172a;
+  --bg-soft: #1e293b;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --text-soft: #475569;
+  --primary: #1d4ed8;
+  --primary-dark: #1e40af;
+  --border: #e2e8f0;
+  --alto: #16a34a;
+  --medio: #d97706;
+  --bajo: #64748b;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-soft) 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  font-size: 1.9rem;
+  margin: 0 0 6px;
+}
+
+.header p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.98rem;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  background: var(--panel);
+  padding: 10px;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.search-box textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+  padding: 12px;
+  font-family: inherit;
+  color: var(--text);
+  background: transparent;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 0 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  transition: background 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hint {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.results {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.notice {
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.card-role {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  margin: 2px 0 0;
+}
+
+.badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.badge.Alto {
+  background: var(--alto);
+}
+.badge.Medio {
+  background: var(--medio);
+}
+.badge.Bajo {
+  background: var(--bajo);
+}
+
+.card-why {
+  margin: 12px 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.skill {
+  background: #eff6ff;
+  color: var(--primary-dark);
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.contact {
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.contact:hover {
+  background: var(--primary-dark);
+}
+
+.availability {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.dot.Disponible {
+  background: var(--alto);
+}
+.dot.Ocupado {
+  background: var(--bajo);
+}
+
+.feedback {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.fb-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.fb-btn:hover {
+  background: #f1f5f9;
+}
+
+.fb-btn.active {
+  background: #dbeafe;
+  border-color: var(--primary);
+}
+
+.fb-thanks {
+  margin-left: auto;
+  font-size: 0.82rem;
+  color: var(--alto);
+  font-weight: 600;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 20px;
+}
+
+.loading {
+  color: #e2e8f0;
+  text-align: center;
+  margin-top: 24px;
+}
