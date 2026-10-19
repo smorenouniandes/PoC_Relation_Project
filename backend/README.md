@@ -35,16 +35,46 @@ backend/
 ## Pasos de construcción
 
 - [x] **Paso 1** — Estructura + generación de datos sintéticos
-- [ ] Paso 2 — Ingesta → Perfil de Expertise Unificado + embeddings
-- [ ] Paso 3 — Motor de matching (consola)
+- [x] **Paso 2** — Ingesta → Perfil de Expertise Unificado + embeddings
+- [x] **Paso 3** — Motor de matching (consola)
 - [ ] Paso 4 — API FastAPI
 - [ ] Paso 5 — Frontend React/Next
 
-## Uso (Paso 1)
+## Uso
 
 ```bash
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+
+# Paso 1 — generar datos sintéticos
 python scripts/generate_data.py --num 50
+
+# Paso 2 — consolidar perfiles + generar embeddings
+python scripts/ingest.py
+
+# Paso 3 — buscar expertos (consulta única o modo interactivo)
+python scripts/search.py "optimización de PostgreSQL para reportería"
+python scripts/search.py            # modo interactivo
 ```
+
+## Motor de matching (Paso 3)
+
+Ranking **híbrido léxico + semántico**:
+
+```
+score = 0.50 * señal_léxica       (coincidencia de habilidades/dominio)
+      + 0.30 * similitud_semántica (embeddings)
+      + 0.12 * evidencia           (demostrado en proyecto > autodeclarado)
+      + 0.08 * recencia            (perfiles recientes pesan más)
+      - penalización de diversidad (evita repetir siempre a los mismos)
+```
+
+El **nivel de confianza** (Alto/Medio/Bajo) se deriva por umbrales del score
+final. Un **gate de relevancia** evita "inventar" expertos cuando nadie es un
+match real (p. ej. consultas fuera de dominio devuelven "sin resultados").
+
+> **Nota del PoC:** el modelo de embeddings multilingüe compacto no discrimina
+> bien la relevancia por sí solo, por eso el ranking ancla la relevancia en la
+> señal léxica. En producción, con Bedrock (Titan + Claude) y una taxonomía de
+> habilidades, la calidad semántica mejora sustancialmente.

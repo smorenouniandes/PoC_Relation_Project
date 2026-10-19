@@ -31,3 +31,22 @@ def get_embedding_provider(nombre: str | None = None) -> EmbeddingProvider:
         f"Proveedor de embeddings desconocido: '{nombre}'. "
         "Usa 'local' o 'bedrock'."
     )
+
+
+def get_llm_provider(nombre: str | None = None):
+    """Devuelve el proveedor LLM según `LLM_PROVIDER` (local | bedrock)."""
+    nombre = (nombre or os.getenv("LLM_PROVIDER", "local")).lower()
+
+    if nombre == "local":
+        from app.providers.local_llm import LocalLLMProvider
+
+        return LocalLLMProvider()
+
+    if nombre == "bedrock":
+        from app.providers.bedrock_llm import BedrockLLMProvider
+
+        return BedrockLLMProvider()
+
+    raise ValueError(
+        f"Proveedor LLM desconocido: '{nombre}'. Usa 'local' o 'bedrock'."
+    )
