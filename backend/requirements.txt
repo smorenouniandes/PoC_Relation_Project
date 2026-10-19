@@ -1,0 +1,17 @@
+# Dependencias del backend — PoC Relation Project
+#
+# Paso 1 (generación de datos) no requiere dependencias externas:
+# usa solo la librería estándar de Python. Las siguientes se irán
+# habilitando en los próximos pasos.
+
+# --- Paso 2: embeddings locales para el PoC ---
+sentence-transformers>=2.2
+
+# --- Paso 4: API ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+
+# --- Producción (AWS) ---
+# boto3>=1.34          # Amazon Bedrock, S3
+# psycopg[binary]>=3.1 # PostgreSQL + pgvector
