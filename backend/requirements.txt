@@ -8,9 +8,9 @@
 sentence-transformers>=2.2
 
 # --- Paso 4: API ---
-# fastapi>=0.110
-# uvicorn[standard]>=0.29
-# pydantic>=2.6
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
 
 # --- Producción (AWS) ---
 # boto3>=1.34          # Amazon Bedrock, S3

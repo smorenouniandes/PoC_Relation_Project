@@ -1,0 +1,38 @@
+# PoC Relation Project — orquestación de contenedores.
+# Despliegue con un solo comando:
+#     docker compose up --build
+#
+# Servicios:
+#   - backend:  API FastAPI (motor de matching) en el puerto 8000
+#   - frontend: app React/Next (Paso 5) en el puerto 3000
+#
+# El frontend se añade en el Paso 5; por ahora el backend es funcional por sí solo.
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: relation_backend
+    ports:
+      - "8000:8000"
+    environment:
+      EMBEDDING_PROVIDER: local
+      LLM_PROVIDER: local
+      NUM_PERSONAS: 50
+      SEED: 42
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"
+    volumes:
+      # Persiste los datos generados entre reinicios (y cachea el modelo).
+      - backend_data:/app/data
+      - hf_cache:/root/.cache/huggingface
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/salud"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s   # primera vez descarga el modelo de embeddings
+
+volumes:
+  backend_data:
+  hf_cache:

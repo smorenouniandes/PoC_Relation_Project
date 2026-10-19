@@ -37,8 +37,35 @@ backend/
 - [x] **Paso 1** — Estructura + generación de datos sintéticos
 - [x] **Paso 2** — Ingesta → Perfil de Expertise Unificado + embeddings
 - [x] **Paso 3** — Motor de matching (consola)
-- [ ] Paso 4 — API FastAPI
+- [x] **Paso 4** — API FastAPI + dockerización
 - [ ] Paso 5 — Frontend React/Next
+
+## API (Paso 4)
+
+Levanta la API con uvicorn (o vía Docker, ver más abajo):
+
+```bash
+uvicorn app.api.main:app --reload
+# Documentación interactiva: http://localhost:8000/docs
+```
+
+### Endpoints
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET  | `/salud` | Health check + info de proveedores |
+| GET  | `/estadisticas` | Agregados de la población (dashboards) |
+| GET  | `/habilidades` | Catálogo de habilidades (autocompletar) |
+| POST | `/buscar` | Busca expertos por consulta en lenguaje natural |
+| POST | `/feedback` | Registra si una recomendación fue útil |
+| GET  | `/personas` | Lista personas (filtros: cargo, disponibilidad) |
+| GET  | `/personas/{id}` | Detalle de un perfil (fuentes + expertise) |
+
+CORS habilitado para `localhost:3000` (configurable con `CORS_ORIGINS`).
+
+## Docker
+
+Ver el README raíz del proyecto: todo se levanta con `docker compose up --build`.
 
 ## Uso
 
