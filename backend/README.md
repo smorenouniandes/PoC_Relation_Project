@@ -19,17 +19,31 @@ Este es un **PoC ejecutable localmente**. Usa implementaciones ligeras (archivos
 ```
 backend/
 ├── app/
-│   ├── core/            # Configuración
+│   ├── core/            # Configuración y rutas (dataset versionado)
 │   ├── models/          # Entidades (dataclasses/pydantic)
 │   ├── data_generation/ # Generador de datos sintéticos (Paso 1)
 │   ├── ingestion/       # Pipeline de consolidación (Paso 2)
 │   ├── matching/        # Motor de matching (Paso 3)
 │   └── providers/       # Capa de abstracción LLM/Embeddings
 ├── data/
-│   ├── raw/             # Datos sintéticos generados
-│   └── processed/       # Perfiles unificados + embeddings
+│   ├── versioned/       # ✅ Base de conocimiento FIJA y versionada (fuente de verdad)
+│   │   └── v1/          #    personas.json + perfiles_unificados.json + MANIFEST.json
+│   ├── raw/             # ❌ Efímero: datos regenerados (no versionado)
+│   └── processed/       # ❌ Efímero: perfiles regenerados (no versionado)
 ├── scripts/             # Scripts ejecutables por consola
 └── requirements.txt
+```
+
+### Base de conocimiento fija y versionada
+
+El runtime consume el **dataset congelado** en `data/versioned/${DATA_VERSION}/`
+(por defecto `v1`): no regenera datos ni recalcula embeddings al arrancar. El
+`MANIFEST.json` aporta procedencia, estadísticas y hashes SHA-256 para gobierno
+de datos. Ver [`docs/06-gobierno-y-versionado-de-datos.md`](../docs/06-gobierno-y-versionado-de-datos.md).
+
+```bash
+python scripts/verify_dataset.py     # verifica integridad (hashes vs. manifiesto)
+python scripts/build_manifest.py --version v1 --num 50 --seed 42  # regenera el manifiesto
 ```
 
 ## Pasos de construcción
@@ -74,16 +88,18 @@ cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# Paso 1 — generar datos sintéticos
-python scripts/generate_data.py --num 50
+# El dataset versionado (data/versioned/v1) ya está incluido: NO hace falta
+# generar nada. Opcionalmente, verifica su integridad:
+python scripts/verify_dataset.py
 
-# Paso 2 — consolidar perfiles + generar embeddings
-python scripts/ingest.py
-
-# Paso 3 — buscar expertos (consulta única o modo interactivo)
+# Buscar expertos (consulta única o modo interactivo)
 python scripts/search.py "optimización de PostgreSQL para reportería"
 python scripts/search.py            # modo interactivo
 ```
+
+> **Regenerar el dataset (opcional, para crear una versión nueva):**
+> `python scripts/generate_data.py --num 50 --seed 42 && python scripts/ingest.py`,
+> luego promover a `data/versioned/vN/` (ver `docs/06-gobierno-y-versionado-de-datos.md`).
 
 ## Motor de matching (Paso 3)
 

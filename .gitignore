@@ -5,9 +5,14 @@ __pycache__/
 venv/
 *.egg-info/
 
-# Datos generados (sintéticos) — no versionar salidas pesadas
+# Datos de trabajo EFÍMEROS (regeneración) — NO versionar.
 backend/data/raw/*.json
 backend/data/processed/
+
+# Base de conocimiento FIJA y versionada — SÍ se versiona (fuente de verdad).
+# Es la excepción explícita a las reglas anteriores.
+!backend/data/versioned/
+!backend/data/versioned/**
 
 # Entornos / secretos
 .env

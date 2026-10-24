@@ -24,9 +24,14 @@ COPY scripts ./scripts
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
+# Copiar la base de conocimiento FIJA y versionada (fuente de verdad).
+# Se hornea en la imagen para que el arranque NO necesite regenerar datos.
+COPY data/versioned ./data/versioned
+
 # Variables por defecto (sobrescribibles en compose).
 ENV EMBEDDING_PROVIDER=local \
     LLM_PROVIDER=local \
+    DATA_VERSION=v1 \
     NUM_PERSONAS=50 \
     SEED=42
 

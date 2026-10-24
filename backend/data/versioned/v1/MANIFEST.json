@@ -1,0 +1,64 @@
+{
+  "dataset": "poc-relation-knowledge-base",
+  "version": "v1",
+  "descripcion": "Base de conocimiento FIJA y versionada del PoC: perfiles sintéticos de Ingeniería en banca y sus Perfiles de Expertise Unificados con embeddings. Dataset congelado y reproducible (no se regenera en runtime).",
+  "naturaleza_datos": "SINTETICOS",
+  "generado_en_utc": "2026-10-24T02:56:47.955641+00:00",
+  "reproducibilidad": {
+    "generador": "scripts/generate_data.py",
+    "ingesta": "scripts/ingest.py",
+    "num_personas": 50,
+    "seed": 42,
+    "determinista": true
+  },
+  "embeddings": {
+    "proveedor": "local",
+    "modelo": "paraphrase-multilingual-MiniLM-L12-v2",
+    "dimension": 384,
+    "normalizados": true,
+    "nota": "Mismo modelo para indexar perfiles y para vectorizar la consulta en runtime (mismo espacio vectorial)."
+  },
+  "archivos": {
+    "personas.json": {
+      "sha256": "0bc6dd24485a6ccc15e03b24cc7661de0151d4c9a6e18762ed3f6d7d6e101e7a",
+      "bytes": 301881,
+      "registros": 50
+    },
+    "perfiles_unificados.json": {
+      "sha256": "43ecc6c8bfffa03ebd601b38a33fae54043138c70395e219eddb37ef4a3a75a6",
+      "bytes": 483568,
+      "registros": 50
+    }
+  },
+  "estadisticas": {
+    "total_personas": 50,
+    "total_fuentes": 264,
+    "total_senales_expertise": 495,
+    "expertise_demostrada_en_proyecto": 263,
+    "expertise_autodeclarada": 232,
+    "distribucion_nivel": {
+      "Semi-Senior": 22,
+      "Junior": 8,
+      "Senior": 17,
+      "Líder": 3
+    },
+    "distribucion_disponibilidad": {
+      "Disponible": 37,
+      "Ocupado": 13
+    },
+    "distribucion_cargo": {
+      "Ingeniero de Plataforma Cloud": 4,
+      "Ingeniero de Datos": 5,
+      "Ingeniero de Seguridad": 4,
+      "Arquitecto de Datos": 5,
+      "Ingeniero de Confiabilidad (SRE)": 4,
+      "Desarrollador Backend": 4,
+      "Ingeniero de Software": 3,
+      "QA Automation Engineer": 6,
+      "Arquitecto de Software": 6,
+      "Ingeniero de Machine Learning": 3,
+      "Desarrollador Frontend": 2,
+      "Ingeniero DevOps": 4
+    }
+  }
+}
