@@ -10,7 +10,12 @@ from __future__ import annotations
 import json
 from datetime import datetime
 
-from app.core.paths import PERSONAS_FILE, PERFILES_FILE
+from app.core.paths import (
+    PERSONAS_FILE,
+    PERFILES_FILE,
+    personas_source,
+    perfiles_source,
+)
 from app.models.entities import (
     Persona,
     FuenteDato,
@@ -28,12 +33,18 @@ def _parse_dt(valor: str) -> datetime:
 
 
 def cargar_personas() -> list[Persona]:
-    """Lee las personas sintéticas desde data/raw/personas.json."""
-    if not PERSONAS_FILE.exists():
+    """Lee las personas desde la base de conocimiento FIJA versionada.
+
+    Fuente de verdad: `data/versioned/<version>/personas.json`. Si esa versión
+    no está presente, cae a los datos regenerados en `data/raw/` (respaldo).
+    """
+    source = personas_source()
+    if not source.exists():
         raise FileNotFoundError(
-            f"No existe {PERSONAS_FILE}. Ejecuta primero scripts/generate_data.py"
+            f"No existe {source}. Usa el dataset versionado (data/versioned/) o "
+            "regenera con scripts/generate_data.py."
         )
-    data = json.loads(PERSONAS_FILE.read_text(encoding="utf-8"))
+    data = json.loads(source.read_text(encoding="utf-8"))
     personas: list[Persona] = []
     for d in data:
         fuentes = [
@@ -96,12 +107,18 @@ def guardar_perfiles(perfiles: list[PerfilExpertiseUnificado]) -> None:
 
 
 def cargar_perfiles() -> list[PerfilExpertiseUnificado]:
-    """Lee los Perfiles de Expertise Unificados persistidos."""
-    if not PERFILES_FILE.exists():
+    """Lee los Perfiles de Expertise Unificados de la base FIJA versionada.
+
+    Fuente de verdad: `data/versioned/<version>/perfiles_unificados.json`. Si
+    esa versión no está presente, cae a `data/processed/` (respaldo).
+    """
+    source = perfiles_source()
+    if not source.exists():
         raise FileNotFoundError(
-            f"No existe {PERFILES_FILE}. Ejecuta primero scripts/ingest.py"
+            f"No existe {source}. Usa el dataset versionado (data/versioned/) o "
+            "regenera con scripts/ingest.py."
         )
-    data = json.loads(PERFILES_FILE.read_text(encoding="utf-8"))
+    data = json.loads(source.read_text(encoding="utf-8"))
     return [
         PerfilExpertiseUnificado(
             persona_id=d["persona_id"],

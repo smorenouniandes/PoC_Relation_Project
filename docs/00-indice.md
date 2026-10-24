@@ -22,6 +22,7 @@
 | 03 | [Modelo de Datos](./03-modelo-de-datos.md) | Fuentes de datos, el "Perfil de Expertise Unificado", entidades |
 | 04 | [Arquitectura](./04-arquitectura.md) | Stack AWS, pipeline de RAG, diagramas, decisiones técnicas |
 | 05 | [Casos de Uso](./05-casos-de-uso.md) | Ejemplos de consultas, resultados esperados, flujos de usuario |
+| 06 | [Gobierno y Versionado de Datos](./06-gobierno-y-versionado-de-datos.md) | Base de conocimiento fija, versionada y reproducible; manifiesto, integridad y ciclo de vida |
 
 ## Convenciones
 
